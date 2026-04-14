@@ -18,7 +18,7 @@ Replace this paragraph with your own summary of what your version does.
 ## How The System Works
 
 Explain your design in plain language.
-
+I have no idea how music reccomedation works in the real world but if i had to guess it woul dthat it uses the tempo and arttist to guess the mood and genre. And with records of previous sonds it mathces that to find the reccomended song. 
 Some prompts to answer:
 
 - What features does each `Song` use in your system
@@ -28,6 +28,61 @@ Some prompts to answer:
 - How do you choose which songs to recommend
 
 You can include a simple diagram or bullet list if helpful.
+Algorithm Recipe
+
+Scoring Rule — score_song(user_prefs, song)
+
+Rule	Points	Logic
+Genre match	+2.0	if song["genre"] == user_prefs["genre"]
+Mood match	+1.0	if song["mood"] == user_prefs["mood"]
+Energy similarity	+0.0 to 1.0	1.0 - abs(song["energy"] - user_prefs["energy"])
+Returns: (score, reasons) — a number and a list of strings explaining why
+Ranking Rule — recommend_songs(user_prefs, songs, k)
+
+Loop through every song, call score_song on each
+Collect (song, score, explanation) tuples
+Sort by score descending
+Return the top k
+Supporting function — load_songs(csv_path)
+
+Open the CSV with Python's csv.DictReader
+Cast numeric columns (energy, tempo_bpm, valence, danceability, acousticness) from strings to float
+Return a list of dicts
+Max possible score per song: 4.0 (2.0 genre + 1.0 mood + 1.0 perfect energy match)
+Ready to implement when you are.
+
+Output: 
+========================================
+  TOP RECOMMENDATIONS FOR YOU
+========================================
+
+#1: Sunrise City by Neon Echo
+    Genre: pop | Mood: happy
+    Score: 3.98 / 4.00
+    Why:   genre match, mood match, energy similarity 0.98
+
+#2: Gym Hero by Max Pulse
+    Genre: pop | Mood: intense
+    Score: 2.87 / 4.00
+    Why:   genre match, energy similarity 0.87
+
+#3: Rooftop Lights by Indigo Parade
+    Genre: indie pop | Mood: happy
+    Score: 1.96 / 4.00
+    Why:   mood match, energy similarity 0.96
+
+#4: Night Drive Loop by Neon Echo
+    Genre: synthwave | Mood: moody
+    Score: 0.95 / 4.00
+    Why:   energy similarity 0.95
+
+#5: Gold Rush Flow by Street Cipher
+    Genre: hip-hop | Mood: energetic
+    Score: 0.92 / 4.00
+    Why:   energy similarity 0.92
+
+========================================
+
 
 ---
 
