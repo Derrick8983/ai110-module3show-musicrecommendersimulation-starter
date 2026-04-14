@@ -19,7 +19,6 @@ def main() -> None:
     user_prefs = {
         "genre": "pop",
         "mood": "happy",
-        "energy": 0.80,        # prefers high-energy tracks
         "tempo_bpm": 120,      # comfortable around 120 BPM (dance-friendly)
         "valence": 0.80,       # wants positive, feel-good songs
         "danceability": 0.85,  # high danceability is a priority
@@ -34,7 +33,7 @@ def main() -> None:
     for i, (song, score, explanation) in enumerate(recommendations, start=1):
         print(f"\n#{i}: {song['title']} by {song['artist']}")
         print(f"    Genre: {song['genre']} | Mood: {song['mood']}")
-        print(f"    Score: {score:.2f} / 4.00")
+        print(f"    Score: {score:.2f} / 3.00")
         print(f"    Why:   {explanation}")
     print("\n" + "=" * 40)
 

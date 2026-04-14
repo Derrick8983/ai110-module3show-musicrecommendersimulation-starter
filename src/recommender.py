@@ -76,10 +76,6 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
         score += 1.0
         reasons.append("mood match")
 
-    energy_similarity = 1.0 - abs(song["energy"] - user_prefs["energy"])
-    score += energy_similarity
-    reasons.append(f"energy similarity {energy_similarity:.2f}")
-
     return score, reasons
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:

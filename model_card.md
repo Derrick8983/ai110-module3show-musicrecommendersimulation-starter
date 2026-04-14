@@ -2,110 +2,52 @@
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+**MoodMatch 1.0**
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+Suggests songs based on a user's favorite genre and mood. Built for classroom exploration, not real-world use.
 
 ---
 
 ## 3. How the Model Works  
 
-Explain your scoring approach in simple language.  
-
-Prompts:  
-
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+Each song is scored against user preferences. A genre match adds 2 points, a mood match adds 1, max score is 3. Songs are ranked and the top 5 are returned. Energy scoring was removed to keep the logic focused.
 
 ---
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+17 songs total. Started with 10 and added 7 to cover missing genres like hip-hop, classical, country, r&b, metal, reggae, and blues. Still a small catalog with no non-English music or older styles represented.
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+Works well when the user's genre and mood are in the catalog. My test profile (pop, happy) scored a perfect 3.00/3.00. Every result includes a plain reason so it is always clear why a song was picked.
 
 ---
 
-## 6. Limitations and Bias 
+## 6. Limitations and Bias  
 
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+Songs with no genre or mood match all score 0, making the lower results basically random. Genre matching is strict so "indie pop" and "pop" are treated as different. Tempo, danceability, and acousticness are unused.
 
 ---
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+Tested with a pop/happy profile. Top results made sense. Removing energy caused everything outside the top matches to score 0, which showed how much one feature can shift the whole ranking.
 
 ---
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+Add energy back as a tiebreaker. Add a no repeat artist rule for more variety. Let users rate results so weights can adjust over time.
 
 ---
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
-
-Prompts:  
-
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+I learned that recommender systems are really just scoring and sorting, the hard part is deciding what to measure. The most unexpected thing was how removing energy caused most songs to drop to 0, one small change completely flattened the results. It changed the way I think about apps like Spotify because I used to think they were reading my mind but now I know they are running the same basic idea just with way more features.
